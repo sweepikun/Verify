@@ -79,32 +79,49 @@ public class BookManager {
         }
         
         try {
-            // 创建规则书
-            ItemStack ruleBook = createRuleBook();
-            
-            // 将书给玩家并自动打开
-            player.getInventory().addItem(ruleBook);
-            
-            // 自动打开书（如果配置启用）
-            if (plugin.getConfigManager().isBookAutoOpen()) {
-                // 延迟一tick再打开书，确保物品已经添加到背包
-                plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
-                    try {
-                        player.openBook(ruleBook);
-                    } catch (Exception e) {
-                        plugin.getLogger().warning("无法为玩家 " + player.getName() + " 打开规则书: " + e.getMessage());
-                    }
-                }, 1L);
-            }
-            
-            // 记录日志
-            if (plugin.getConfigManager().logVerifications()) {
-                plugin.getLogger().info("为玩家 " + player.getName() + " 展示了规则书");
+            // 根据配置决定是否使用GUI界面
+            if (plugin.getConfigManager().useGUIBook()) {
+                // 使用GUI界面展示规则书
+                plugin.getGUIManager().openRuleBookGUI(player);
+                
+                if (plugin.getConfigManager().logVerifications()) {
+                    plugin.getLogger().info("为玩家 " + player.getName() + " 展示了规则书界面");
+                }
+            } else {
+                // 使用原有的实体书方式
+                showPhysicalBook(player);
             }
             
         } catch (Exception e) {
-            plugin.getLogger().severe("创建规则书时发生错误: " + e.getMessage());
+            plugin.getLogger().severe("展示规则书时发生错误: " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+    
+    /**
+     * 展示实体书（原有的逻辑）
+     */
+    private void showPhysicalBook(Player player) {
+        // 创建规则书
+        ItemStack ruleBook = createRuleBook();
+        
+        // 将书给玩家并自动打开
+        player.getInventory().addItem(ruleBook);
+        
+        // 自动打开书（如果配置启用）
+        if (plugin.getConfigManager().isBookAutoOpen()) {
+            // 延迟一tick再打开书，确保物品已经添加到背包
+            plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                try {
+                    player.openBook(ruleBook);
+                } catch (Exception e) {
+                    plugin.getLogger().warning("无法为玩家 " + player.getName() + " 打开规则书: " + e.getMessage());
+                }
+            }, 1L);
+        }
+        
+        if (plugin.getConfigManager().logVerifications()) {
+            plugin.getLogger().info("为玩家 " + player.getName() + " 发送了实体规则书");
         }
     }
     

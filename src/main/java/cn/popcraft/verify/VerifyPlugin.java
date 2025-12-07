@@ -3,9 +3,11 @@ package cn.popcraft.verify;
 import cn.popcraft.verify.commands.VerifyCommand;
 import cn.popcraft.verify.commands.VerifyTabCompleter;
 import cn.popcraft.verify.events.PlayerEventListener;
+import cn.popcraft.verify.events.GUIClickListener;
 import cn.popcraft.verify.managers.ConfigManager;
 import cn.popcraft.verify.managers.VerificationManager;
 import cn.popcraft.verify.managers.BookManager;
+import cn.popcraft.verify.managers.GUIManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
@@ -25,6 +27,7 @@ public class VerifyPlugin extends JavaPlugin {
     private ConfigManager configManager;
     private VerificationManager verificationManager;
     private BookManager bookManager;
+    private GUIManager guiManager;
     
     @Override
     public void onEnable() {
@@ -39,8 +42,12 @@ public class VerifyPlugin extends JavaPlugin {
         // 初始化书管理器
         bookManager = new BookManager(this);
         
+        // 初始化GUI管理器
+        guiManager = new GUIManager(this);
+        
         // 注册事件监听器
         getServer().getPluginManager().registerEvents(new PlayerEventListener(this), this);
+        getServer().getPluginManager().registerEvents(new GUIClickListener(this), this);
         
         // 注册命令
         if (getCommand("verify") != null) {
@@ -110,5 +117,12 @@ public class VerifyPlugin extends JavaPlugin {
      */
     public BookManager getBookManager() {
         return bookManager;
+    }
+    
+    /**
+     * 获取GUI管理器
+     */
+    public GUIManager getGUIManager() {
+        return guiManager;
     }
 }

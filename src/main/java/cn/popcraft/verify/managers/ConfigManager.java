@@ -142,6 +142,13 @@ public class ConfigManager {
     }
     
     /**
+     * 是否使用GUI界面展示规则书
+     */
+    public boolean useGUIBook() {
+        return config.getBoolean("book.use-gui", true);
+    }
+    
+    /**
      * 获取书标题
      */
     public String getBookTitle() {

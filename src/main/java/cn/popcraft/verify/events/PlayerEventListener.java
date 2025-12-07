@@ -32,7 +32,9 @@ public class PlayerEventListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         
-        // 检查是否有跳过验证权限
+        // 移除跳过验证权限的逻辑，确保每次都强制验证
+        // 注释掉以下代码：
+        /*
         if (player.hasPermission("verify.bypass")) {
             if (plugin.getConfigManager().logVerifications()) {
                 plugin.getLogger().info("玩家 " + player.getName() + " 跳过验证 (拥有 bypass 权限)");
@@ -47,6 +49,7 @@ public class PlayerEventListener implements Listener {
             
             return;
         }
+        */
         
         // 检查验证功能是否启用
         if (!plugin.getConfigManager().isVerificationEnabled()) {
@@ -60,12 +63,14 @@ public class PlayerEventListener implements Listener {
         VerificationManager.PlayerVerification verification = plugin.getVerificationManager().createVerification(player);
         
         if (verification != null) {
-            // 发送验证消息
-            plugin.getBookManager().sendQuickVerifyMessage(player, verification.getVerificationCode());
-            
             // 修改加入消息
             String joinMessage = "§7[§a验证§7] §b" + player.getName() + " §7加入了服务器";
             event.setJoinMessage(joinMessage);
+            
+            // 延迟打开验证GUI界面
+            plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                plugin.getGUIManager().openVerifyGUI(player, verification.getVerificationCode());
+            }, 20L); // 延迟1秒
             
             if (plugin.getConfigManager().logVerifications()) {
                 plugin.getLogger().info("玩家 " + player.getName() + " 加入，需要验证 (验证码: " + verification.getVerificationCode() + ")");
