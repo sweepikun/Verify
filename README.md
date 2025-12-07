@@ -30,7 +30,7 @@ Verify 是一个 Minecraft Spigot 插件，提供玩家验证码验证和规则�
 ## 安装方法
 
 1. 将 `Verify-1.0.0.jar` 文件放入服务器的 `plugins` 文件夹
-2. 重启服务器或使用 `/reload` 命令
+2. 重启服务器或使用 `/plugman load Verify.jar` 命令(需要PlugmanX)
 3. 插件会自动创建配置文件
 
 ## 配置说明
