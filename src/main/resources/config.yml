@@ -1,0 +1,117 @@
+# Verify 插件配置文件
+# 作者: Popcraft
+
+# 验证码设置
+verification:
+  # 是否启用验证码功能
+  enabled: true
+  # 验证码类型: RANDOM(随机), CUSTOM(自定义)
+  type: RANDOM
+  # 自定义验证码(当type为CUSTOM时使用)
+  custom-code: "WELCOME2024"
+  # 随机验证码长度
+  random-length: 6
+  # 验证码字符集
+  characters: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+  # 验证超时时间(秒)
+  timeout: 300
+  # 重试次数限制
+  max-attempts: 3
+  # 验证失败后的踢出消息
+  kick-message: "§c验证码验证失败！"
+
+# 规则书设置
+book:
+  # 是否启用规则书功能
+  enabled: true
+  # 是否在验证成功后自动打开规则书
+  auto-open: true
+  # 书标题
+  title: "§l服务器规则"
+  # 作者
+  author: "§6管理员"
+  # 书页内容
+  pages:
+    - |
+      §l§a欢迎来到我们的服务器！
+      
+      §r§7为了确保服务器的安全，
+      请您先通过验证码验证。
+      
+      §r§2验证码规则：
+      • 输入显示的验证码
+      • 验证有时间限制
+      • 验证失败将被踢出
+      
+      §r§b祝您游戏愉快！
+    - |
+      §l§6服务器规则
+      
+      §r§7§n请遵守以下规则：
+      
+      §r§a1. §r§7尊重他人，不进行言语攻击
+      
+      §r§a2. §r§7禁止恶意破坏建筑
+      
+      §r§a3. §r§7禁止使用外挂或作弊工具
+      
+      §r§a4. §r§7禁止在服务器内交易真实货币
+      
+      §r§a5. §r§7珍惜资源，合理建造
+      
+      §r§9违反规则将被警告或封禁！
+    - |
+      §l§d游戏指南
+      
+      §r§7§n基础指令：
+      
+      §r§a/help §r§7- 查看所有可用指令
+      
+      §r§a/kit §r§7- 领取新手礼包
+      
+      §r§a/sethome §r§7- 设置家
+      
+      §r§a/home §r§7- 回家
+      
+      §r§a/tpa <玩家> §r§7- 请求传送到玩家
+      
+      §r§a/tpaccept §r§7- 同意传送
+      
+      §r§7§n§o更多功能等待您探索！
+      
+      §r§3§o有问题请联系管理员~
+
+# 消息设置
+messages:
+  # 玩家加入时发送的验证消息
+  join-message:
+    - "§a=== 欢迎加入服务器 ==="
+    - "§7您的验证码是: §b{code}"
+    - "§7请在聊天框输入: §e/verify {code}"
+    - "§7或点击聊天栏中的链接快速验证"
+    - "§7验证限时: §c{timeout}秒"
+  # 验证成功消息
+  success-message:
+    - "§a✅ 验证成功！欢迎来到服务器！"
+    - "§7祝您游戏愉快~"
+  # 验证失败消息
+  failed-message:
+    - "§c❌ 验证失败！"
+    - "§7剩余尝试次数: §e{attempts}"
+  # 验证超时消息
+  timeout-message:
+    - "§c⏰ 验证超时！"
+    - "§7请重新加入服务器"
+
+# 其他设置
+settings:
+  # 验证通过后是否给予奖励
+  give-rewards: false
+  # 奖励命令(每行一个命令)
+  reward-commands:
+    - "give {player} minecraft:stone 64"
+    - "eco give {player} 100"
+  # 是否记录验证日志
+  log-verifications: true
+  # 是否在控制台显示调试信息
+  debug: false
