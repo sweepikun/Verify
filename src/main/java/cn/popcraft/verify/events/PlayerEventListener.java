@@ -34,7 +34,7 @@ public class PlayerEventListener implements Listener {
         
         // 移除跳过验证权限的逻辑，确保每次都强制验证
         // 注释掉以下代码：
-        /*
+        
         if (player.hasPermission("verify.bypass")) {
             if (plugin.getConfigManager().logVerifications()) {
                 plugin.getLogger().info("玩家 " + player.getName() + " 跳过验证 (拥有 bypass 权限)");
@@ -49,7 +49,7 @@ public class PlayerEventListener implements Listener {
             
             return;
         }
-        */
+        
         
         // 检查验证功能是否启用
         if (!plugin.getConfigManager().isVerificationEnabled()) {
